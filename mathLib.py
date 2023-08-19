@@ -1,5 +1,6 @@
 import math
 
+
 def matMatMult(m1, m2):
     result = [[0 for _ in range(len(m2[0]))] for _ in range(len(m1))]
     for i in range(len(m1)):
@@ -15,6 +16,7 @@ def matMult(m1, m2):
 
 def matVectMult(mat, vect):
     return [sum(mat[x][y] * vect[y] for y in range(4)) for x in range(4)]
+
 
 def barycentricCoordinates(A, B, C, P):
     areaPCB = (B[1] - C[1]) * (P[0] - C[0]) + (C[0] - B[0]) * (P[1] - C[1])

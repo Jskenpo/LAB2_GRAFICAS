@@ -1,4 +1,4 @@
-from Mate import matMatMult
+from mathLib import matMatMult
 
 
 def vertexShader(vertex, **kwargs):

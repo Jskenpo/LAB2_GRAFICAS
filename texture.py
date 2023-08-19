@@ -1,10 +1,9 @@
 import struct
 
-
 class Texture(object):
     def __init__(self, filename):
         with open(filename, "rb") as image:
-            # Se carga la informaci�n de la imagen, asumiendo
+            # Se carga la información de la imagen, asumiendo
             # que tiene un formato BMP de 24 bits.
             image.seek(10)
             headerSize = struct.unpack('=l', image.read(4))[0]
@@ -21,18 +20,15 @@ class Texture(object):
                 pixelRow = []
 
                 for x in range(self.width):
-                    b = ord(image.read(1)) / 255
-                    g = ord(image.read(1)) / 255
-                    r = ord(image.read(1)) / 255
-                    pixelRow.append([r,g,b])
+                    b, g, r = struct.unpack('=BBB', image.read(3))
+                    pixelRow.append([r / 256, g / 256, b / 256])
 
                 self.pixels.append(pixelRow)
 
-
     def getColor(self, u, v):
-        # Se regresa el valor del pixel si los valores de las uv
-        # est�n entre 0 y 1.
-        if 0<=u<1 and 0<=v<1:
-            return self.pixels[int(v * self.height)][int(u * self.width)]
+        if 0 <= u < 1 and 0 <= v < 1:
+            x = int(u * self.width)
+            y = int(v * self.height)
+            return self.pixels[y][x]  # Reversing y and x indexing
         else:
-            return None
+            return None7
