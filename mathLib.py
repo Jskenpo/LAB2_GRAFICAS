@@ -1,22 +1,32 @@
 import math
-
-
 def matMatMult(m1, m2):
     result = [[0 for _ in range(len(m2[0]))] for _ in range(len(m1))]
     for i in range(len(m1)):
         for j in range(len(m2[0])):
+            sum_value = 0
             for k in range(len(m2)):
-                result[i][j] += m1[i][k] * m2[k][j]
+                sum_value += m1[i][k] * m2[k][j]
+            result[i][j] = sum_value
     return result
 
-
 def matMult(m1, m2):
-    return [[sum(m1[x][i] * m2[i][y] for i in range(4)) for y in range(4)] for x in range(4)]
-
+    result = [[0 for _ in range(4)] for _ in range(4)]
+    for i in range(4):
+        for j in range(4):
+            sum_value = 0
+            for k in range(4):
+                sum_value += m1[i][k] * m2[k][j]
+            result[i][j] = sum_value
+    return result
 
 def matVectMult(mat, vect):
-    return [sum(mat[x][y] * vect[y] for y in range(4)) for x in range(4)]
-
+    result = [0, 0, 0, 0]
+    for i in range(4):
+        sum_value = 0
+        for j in range(4):
+            sum_value += mat[i][j] * vect[j]
+        result[i] = sum_value
+    return result
 
 def barycentricCoordinates(A, B, C, P):
     areaPCB = (B[1] - C[1]) * (P[0] - C[0]) + (C[0] - B[0]) * (P[1] - C[1])
@@ -27,10 +37,9 @@ def barycentricCoordinates(A, B, C, P):
         u = areaPCB / areaABC
         v = areaACP / areaABC
         w = 1 - u - v
-    except:
+    except ZeroDivisionError:
         u = v = w = -1
     return u, v, w
-
 
 # inverso de matrices
 
